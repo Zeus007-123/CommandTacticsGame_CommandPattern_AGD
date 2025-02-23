@@ -54,10 +54,5 @@ namespace Command.Actions
                     break;
             }
         }
-
-        public void PerformAction(UnitController unitController, UnitController targetUnit)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

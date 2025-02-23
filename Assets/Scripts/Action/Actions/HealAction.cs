@@ -30,10 +30,5 @@ namespace Command.Actions
         }
 
         public Vector3 CalculateMovePosition(UnitController targetUnit) => targetUnit.GetEnemyPosition();
-
-        public void PerformAction(UnitController unitController, UnitController targetUnit)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
