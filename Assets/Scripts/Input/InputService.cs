@@ -1,6 +1,7 @@
 using Command.Main;
 using Command.Player;
 using Command.Actions;
+using Command.Commands;
 
 namespace Command.Input
 {
@@ -9,7 +10,7 @@ namespace Command.Input
         private MouseInputHandler mouseInputHandler;
 
         private InputState currentState;
-        private ActionType selectedActionType;
+        private CommandType selectedCommandType;
         private TargetType targetType;
 
         public InputService()
@@ -25,15 +26,15 @@ namespace Command.Input
 
         public void UpdateInputService()
         {
-            if(currentState == InputState.SELECTING_TARGET)
+            if (currentState == InputState.SELECTING_TARGET)
                 mouseInputHandler.HandleTargetSelection(targetType);
         }
 
-        public void OnActionSelected(ActionType selectedActionType)
+        public void OnActionSelected(CommandType selectedCommandType)
         {
-            this.selectedActionType = selectedActionType;
+            this.selectedCommandType = selectedCommandType;
             SetInputState(InputState.SELECTING_TARGET);
-            TargetType targetType = SetTargetType(selectedActionType);
+            TargetType targetType = SetTargetType(selectedCommandType);
             ShowTargetSelectionUI(targetType);
         }
 
@@ -43,12 +44,13 @@ namespace Command.Input
             GameService.Instance.UIService.ShowTargetOverlay(playerID, selectedTargetType);
         }
 
-        private TargetType SetTargetType(ActionType selectedActionType) => targetType = GameService.Instance.ActionService.GetTargetTypeForAction(selectedActionType);
+        private TargetType SetTargetType(CommandType selectedCommandType) => targetType = GameService.Instance.ActionService.GetTargetTypeForAction(selectedCommandType);
 
         public void OnTargetSelected(UnitController targetUnit)
         {
             SetInputState(InputState.EXECUTING_INPUT);
-            GameService.Instance.PlayerService.PerformAction(selectedActionType, targetUnit);
+            GameService.Instance.PlayerService.PerformAction(selectedCommandType, targetUnit);
         }
+
     }
 }

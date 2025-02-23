@@ -10,11 +10,8 @@ namespace Command.Actions
     public interface IAction
     {
         public TargetType TargetType { get; }
-
-        public void PerformAction(UnitController actorUnit, UnitController targetUnit);
-
-        public bool IsSuccessful();
-
+        public void PerformAction(UnitController actorUnit, UnitController targetUnit, bool isSuccessful);
         public Vector3 CalculateMovePosition(UnitController targetUnit);
-    } 
+        public void PerformAction(UnitController unitController, UnitController targetUnit);
+    }
 }
