@@ -10,7 +10,9 @@ namespace Command.Commands
             ExecuteCommand(commandToProcess);
             RegisterCommand(commandToProcess);
         }
+
         public void ExecuteCommand(ICommand commandToExecute) => commandToExecute.Execute();
+
         public void RegisterCommand(ICommand commandToRegister) => commandRegistry.Push(commandToRegister);
     }
 

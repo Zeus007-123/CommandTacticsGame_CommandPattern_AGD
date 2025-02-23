@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 using Command.Utilities;
 using Command.Sound;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ using Command.UI;
 using Command.Events;
 using Command.Battle;
 using Command.Actions;
-using UnityEngine.UI;
 using Command.Commands;
 
 namespace Command.Main
