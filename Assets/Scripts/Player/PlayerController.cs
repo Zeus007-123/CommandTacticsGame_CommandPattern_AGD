@@ -82,7 +82,7 @@ namespace Command.Player
             units.ForEach(unit => unit.Destroy());
             units.Clear();
         }
-
+        public void ProcessUnitCommand(UnitCommand commandToProcess) => GetUnitByID(commandToProcess.commandData.ActorUnitID).ProcessUnitCommand(commandToProcess);
         // TODO:    What is this??
         public void ResetCurrentActivePlayer()
         {
@@ -90,10 +90,7 @@ namespace Command.Player
             activeUnitIndex--;
             units[activeUnitIndex].StartUnitTurn();
         }
-        public void ProcessUnitCommand(UnitCommand commandToProcess)
-        {
-            GetUnitByID(commandToProcess.commandData.ActorUnitID).ProcessUnitCommand(commandToProcess);
-        }
+        
         public void ResetCurrentActiveUnit()
         {
             units[activeUnitIndex].ResetUnitIndicator();
