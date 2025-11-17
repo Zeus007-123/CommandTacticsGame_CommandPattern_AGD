@@ -1,4 +1,4 @@
-using Command.Commands;
+using Command.Actions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +9,7 @@ namespace Command.UI
     {
         [SerializeField] private TextMeshProUGUI buttonText;
         private ActionSelectionUIController owner;
-        private CommandType actionType;
+        private ActionType actionType;
 
         private void Start() => GetComponent<Button>().onClick.AddListener(OnActionButtonClicked);
 
@@ -18,7 +18,7 @@ namespace Command.UI
         // To Learn more about Events and Observer Pattern, check out the course list here: https://outscal.com/courses
         private void OnActionButtonClicked() => owner.OnActionSelected(actionType);
 
-        public void SetCommandType(CommandType actionType)
+        public void SetCommandType(ActionType actionType)
         {
             this.actionType = actionType;
             buttonText.SetText(actionType.ToString());

@@ -1,7 +1,6 @@
 using Command.Input;
 using Command.Main;
 using Command.Player;
-using Command.Commands;
 using UnityEngine;
 
 namespace Command.Actions
@@ -10,20 +9,19 @@ namespace Command.Actions
     {
         private UnitController actorUnit;
         private UnitController targetUnit;
-        private bool isSuccessful;
         public TargetType TargetType => TargetType.Self;
 
-        public void PerformAction(UnitController actorUnit, UnitController targetUnit, bool isSuccessful)
+        public void PerformAction(UnitController actorUnit, UnitController targetUnit)
         {
             this.actorUnit = actorUnit;
             this.targetUnit = targetUnit;
-            this.isSuccessful = isSuccessful;
-            actorUnit.PlayBattleAnimation(CommandType.BerserkAttack, CalculateMovePosition(targetUnit), OnActionAnimationCompleted);
+
+            actorUnit.PlayBattleAnimation(ActionType.BerserkAttack, CalculateMovePosition(targetUnit), OnActionAnimationCompleted);
         }
 
         public void OnActionAnimationCompleted()
         {
-            if (isSuccessful)
+            if (IsSuccessful())
             {
                 int healthToConvert = (int)(targetUnit.CurrentHealth * 0.25f);
                 targetUnit.TakeDamage(healthToConvert);
@@ -32,6 +30,8 @@ namespace Command.Actions
             else
                 GameService.Instance.UIService.ActionMissed();
         }
+
+        public bool IsSuccessful() => true;
 
         public Vector3 CalculateMovePosition(UnitController targetUnit) => targetUnit.GetEnemyPosition();
     }

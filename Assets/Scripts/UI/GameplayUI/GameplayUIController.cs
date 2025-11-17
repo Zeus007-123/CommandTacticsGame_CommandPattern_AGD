@@ -50,6 +50,5 @@ namespace Command.UI
         public void ShowMissedAction() => gameplayView.ShowMissedText();
 
         public void SetBattleBackgroundImage(Sprite bgSprite) => gameplayView.SetBattleBackgroundImage(bgSprite);
-        public void OnUndoButtonClicked() => GameService.Instance.CommandInvoker.Undo();
     }
 }

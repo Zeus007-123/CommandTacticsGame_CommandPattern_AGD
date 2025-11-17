@@ -1,6 +1,6 @@
 using UnityEngine;
 using Command.Main;
-using Command.Commands;
+using Command.Actions;
 using System.Collections;
 using System;
 using Object = UnityEngine.Object;
@@ -17,7 +17,7 @@ namespace Command.Player
         public UnitType UnitType => unitScriptableObject.UnitType;
         public int CurrentHealth { get; private set; }
         public UnitUsedState UsedState { get; private set; }
-
+        
         private UnitAliveState aliveState;
         private Vector3 originalPosition;
         public int CurrentPower;
@@ -76,7 +76,7 @@ namespace Command.Player
             else
                 unitView.PlayAnimation(UnitAnimations.HIT);
 
-            unitView.UpdateHealthBar((float)CurrentHealth / CurrentMaxHealth);
+            unitView.UpdateHealthBar((float) CurrentHealth / CurrentMaxHealth);
         }
 
         public void RestoreHealth(int healthToRestore)
@@ -91,19 +91,19 @@ namespace Command.Player
             unitView.PlayAnimation(UnitAnimations.DEATH);
         }
 
-        public void PlayBattleAnimation(CommandType actionType, Vector3 battlePosition, Action callback)
+        public void PlayBattleAnimation(ActionType actionType, Vector3 battlePosition, Action callback)
         {
             GameService.Instance.UIService.ResetBattleBackgroundOverlay();
             MoveToBattlePosition(battlePosition, callback, true, actionType);
         }
 
-        private void MoveToBattlePosition(Vector3 battlePosition, Action callback = null, bool shouldPlayActionAnimation = true, CommandType actionTypeToExecute = CommandType.None)
+        private void MoveToBattlePosition(Vector3 battlePosition, Action callback = null,  bool shouldPlayActionAnimation = true, ActionType actionTypeToExecute = ActionType.None)
         {
             float moveTime = Vector3.Distance(unitView.transform.position, battlePosition) / unitScriptableObject.MovementSpeed;
             unitView.StartCoroutine(MoveToPositionOverTime(battlePosition, moveTime, callback, shouldPlayActionAnimation, actionTypeToExecute));
         }
 
-        private IEnumerator MoveToPositionOverTime(Vector3 targetPosition, float time, Action callback, bool shouldPlayActionAnimation, CommandType actionTypeToExecute)
+        private IEnumerator MoveToPositionOverTime(Vector3 targetPosition, float time, Action callback, bool shouldPlayActionAnimation, ActionType actionTypeToExecute)
         {
             float elapsedTime = 0;
             Vector3 startingPosition = unitView.transform.position;
@@ -124,11 +124,11 @@ namespace Command.Player
                 callback.Invoke();
         }
 
-        private void PlayActionAnimation(CommandType actionType)
+        private void PlayActionAnimation(ActionType actionType)
         {
-            if (actionType == CommandType.None)
+            if (actionType == ActionType.None)
                 return;
-
+            
             if (actionType == unitScriptableObject.executableCommands[0])
                 unitView.PlayAnimation(UnitAnimations.ACTION1);
             else if (actionType == unitScriptableObject.executableCommands[1])
@@ -147,25 +147,21 @@ namespace Command.Player
 
         public void ResetStats() => CurrentPower = unitScriptableObject.Power;
 
-        public void Revive()
-        {
-            SetAliveState(UnitAliveState.ALIVE);
-            unitView.PlayAnimation(UnitAnimations.IDLE);
-        }
+        public void Revive() => SetAliveState(UnitAliveState.ALIVE);
 
         public void Destroy() => UnityEngine.Object.Destroy(unitView.gameObject);
 
         public void ResetUnitIndicator() => unitView.SetUnitIndicator(false);
 
-        public Vector3 GetEnemyPosition()
+        public Vector3 GetEnemyPosition() 
         {
             if (Owner.PlayerID == 1)
                 return unitView.transform.position + unitScriptableObject.EnemyBattlePositionOffset;
             else
                 return unitView.transform.position - unitScriptableObject.EnemyBattlePositionOffset;
         }
-        public void ProcessUnitCommand(UnitCommand commandToProcess) => GameService.Instance.CommandInvoker.ProcessCommand(commandToProcess);
     }
+
     public enum UnitUsedState
     {
         USED,
