@@ -1451,6 +1451,7 @@ MonoBehaviour:
   EnemyOverlayColor: {r: 1, g: 0, b: 0, a: 0.23529412}
   ActionSelectionOverlayColor: {r: 0, g: 0, b: 1, a: 0.23529412}
   backgroundImage: {fileID: 1331666487}
+  undoButton: {fileID: 101671528}
 --- !u!1 &988327833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2777,6 +2778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultText: {fileID: 1682630446}
   homeButton: {fileID: 799045267}
+  replayButton: {fileID: 988327835}
 --- !u!1 &2089575972
 GameObject:
   m_ObjectHideFlags: 0
