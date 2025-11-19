@@ -769,11 +769,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: ec2be476-6557-42ad-b81e-7e661b0c967d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: CommandTacticsGame_CommandPattern_AGD
+  organizationId: unity_b30194fa5079eb4cf0d5
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
